@@ -783,6 +783,7 @@ MonoBehaviour:
   rectSprites:
   - {fileID: 21300000, guid: 7fa99470684b1f449ab21082e2b88af0, type: 3}
   - {fileID: 21300000, guid: 0958a83a31cc50640ab29bda9f392b41, type: 3}
+  - {fileID: 21300000, guid: b9800cd2b18f954419da94865707912e, type: 3}
   buttonPref: {fileID: 1378180078}
   saveButton: {fileID: 0}
 --- !u!4 &752027250
