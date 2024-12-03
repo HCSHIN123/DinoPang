@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 public class GameData : MonoBehaviour
 {
+
     public int[,] boardData = new int[9, 9];
 
     

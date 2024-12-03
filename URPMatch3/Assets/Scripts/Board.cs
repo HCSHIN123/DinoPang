@@ -14,7 +14,13 @@ public class Board : MonoBehaviour
 
     public BlockFactory factory;
 
-
+    public enum ComponentTypes
+    {
+        Normal = 0,
+        NormalWall,
+        RespawnWall,
+    }
+    // TODO:스폰 정보를 저장, 해당 블록이 스폰 블록 위치인지를 알게끔 스폰블록이서 스폰이 되는 시스템 구축
     public static readonly Vector3Int[] neighbours =
         {
             Vector3Int.up,
@@ -345,7 +351,7 @@ public class Board : MonoBehaviour
             int yCmp = a.y.CompareTo(b.y);
             if (yCmp == 0)
             {
-                return a.x.CompareTo(b.x);
+                return a.x.CompareTo(b.x); // 일단좌측우선 TODO:랜덤으로 하는 것도 고려
             }
             return yCmp;
         });
@@ -431,6 +437,7 @@ public class Board : MonoBehaviour
                         emptyComponents.Remove(target);
                         emptyComponents.Add(curPos);
 
+                        ////////////////// 리스폰 상황///////////////////
                         if ((curPos + Vector3Int.up).y >= height)
                             RespawnBlock(curPos);
                     }

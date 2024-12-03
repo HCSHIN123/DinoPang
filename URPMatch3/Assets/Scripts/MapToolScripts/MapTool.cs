@@ -60,7 +60,7 @@ public class MapTool : MonoBehaviour
         RectTransform btnRt = buttonPref.GetComponentInChildren<RectTransform>();
         float offset = btnRt.sizeDelta.x;
 
-        for (int i = 0; i < rectSprites.Length; ++i)
+        for (int i = 0; i < rectSprites.Length; ++i) // 등록된 스프라이트에 맞게 버튼 생성
         {
             Button extrBtn = Instantiate(buttonPref, canvas.transform);
             extrBtn.transform.position = btnStartPos + new Vector3(offset * (i + 1), 0, 0);
