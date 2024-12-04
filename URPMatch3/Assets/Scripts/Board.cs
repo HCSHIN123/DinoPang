@@ -332,7 +332,7 @@ public class Board : MonoBehaviour
                 emptyComponents.Add(upPos + Vector3Int.left);
                 emptyComponents.Remove(curPos);
             }
-            else if ((curPos + Vector3Int.up).y >= height)
+            else if ((curPos + Vector3Int.up).y >= height)  // curPos가 리스폰 영역이라면 거기서 리스폰되게
                 RespawnBlock(curPos);
             //else if()
 
