@@ -289,6 +289,7 @@ public class Board : MonoBehaviour
                 continue;
             }
 
+
             Vector3Int upPos = curPos + Vector3Int.up;
             bool isUpAvailable = dicComponents.TryGetValue(upPos, out BoardComponent up);
             bool isUpEmpty = isUpAvailable && up.Empty() && !CanSpawn(curPos); // 같은 열에 스폰이 불가능한 상황
