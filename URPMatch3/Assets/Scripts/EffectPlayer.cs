@@ -12,7 +12,6 @@ public class EffectPlayer : MonoBehaviour
     {
         anim = GetComponent<Animator>();
     }
-
     public void PlayExplosionEffect()
     {
         anim.SetTrigger("NormalMatch");
@@ -20,7 +19,7 @@ public class EffectPlayer : MonoBehaviour
 
     public void SetActiveFalse()
     {
-        // ÇöÀç ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³µ´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö ³¡³ª¸é 1ÀÌ µÊ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½
         while(anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
 

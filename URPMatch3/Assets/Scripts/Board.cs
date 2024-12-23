@@ -20,7 +20,8 @@ public class Board : MonoBehaviour
         NormalWall,
         RespawnWall,
     }
-    // TODO:½ºÆù Á¤º¸¸¦ ÀúÀå, ÇØ´ç ºí·ÏÀÌ ½ºÆù ºí·Ï À§Ä¡ÀÎÁö¸¦ ¾Ë°Ô²û ½ºÆùºí·ÏÀÌ¼­ ½ºÆùÀÌ µÇ´Â ½Ã½ºÅÛ ±¸Ãà
+    // TODO:ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë°Ô²ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ì£¼ì„ê¹¨ì§
     public static readonly Vector3Int[] neighbours =
         {
             Vector3Int.up,
@@ -44,17 +45,17 @@ public class Board : MonoBehaviour
     public InputAction ClickPosition;
     private Dictionary<int, Block> dicBlockTypes;
 
-    // Dictionary·Î °ü¸®ÇÏ´Â ÀÌÀ¯ : À§Ä¡¸¦ ±âÁØÀ¸·Î Block¿¡ Á¢±ÙÇÏ°Ô µÇ´Â °æ¿ì°¡ ¸¹¾Æ¼­ Vector2Int¸¦ Å°°ªÀ¸·Î ºü¸£°Ô Á¢±Ù O(1)
+    // Dictionaryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Blockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ì°¡ ï¿½ï¿½ï¿½Æ¼ï¿½ Vector2Intï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ O(1)
     private Dictionary<Vector3Int, BoardComponent> dicComponents = new();
     private (Vector3Int, Vector3Int) tupleSwapKeys;
     private Vector3Int invalidVector3 = new Vector3Int(-1, -1, -1);
     private List<Vector3Int> removedList = new List<Vector3Int>();
 
-    private List<Match> curMatches = new List<Match>();     // ÇöÀç¼º°øÇÑ ¸ÅÄ¡
-    private List<Vector3Int> emptyComponents = new List<Vector3Int>();  // ºí·ÏÀÌ ÅÍÁö°í ºóÄÄÆ÷³ÍÆ®¸ñ·Ï
-    private List<Vector3Int> movingComponents = new List<Vector3Int>(); // ¿òÁ÷ÀÌ´Â ºí·ÏÀÌ ÀÖ´Â ÄÄÆ÷³ÍÆ®¸ñ·Ï
-    private List<Vector3Int> newMovingComponents = new List<Vector3Int>();  // »õ·ÎÃß°¡µÇ´Â ¿òÁ÷ÀÌ´Âºí·Ïµé ¸ñ·Ï
-    private List<Vector3Int> extraCheckComponents = new List<Vector3Int>();  // ºí·Ï¹«ºùÀÌ ¿Ï·áµÇ°í »õ·ÎÃ¼Å©ÇÒ ÄÄÆ÷³ÍÆ® ¸ñ·Ï
+    private List<Match> curMatches = new List<Match>();     // ï¿½ï¿½ï¿½ç¼ºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+    private List<Vector3Int> emptyComponents = new List<Vector3Int>();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½
+    private List<Vector3Int> movingComponents = new List<Vector3Int>(); // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½
+    private List<Vector3Int> newMovingComponents = new List<Vector3Int>();  // ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´Âºï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½
+    private List<Vector3Int> extraCheckComponents = new List<Vector3Int>();  // ï¿½ï¿½ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 
     private bool canInput = true;
     void Update()
@@ -99,7 +100,7 @@ public class Board : MonoBehaviour
         {
             dicBlockTypes.Add(block.typeNumber, block);
         }
-        // BoardComponent¸¦ ¸ÕÀú ÃÊ±âÈ­
+        // BoardComponentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -115,7 +116,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        // ºí·Ï Å¸ÀÔÀ» Ã¼Å©ÇÏ°í ºí·ÏÀ» ¹èÄ¡
+        // ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -125,16 +126,16 @@ public class Board : MonoBehaviour
                     continue;
                 Vector3Int curKey = new Vector3Int(x, y, 0);
 
-                // ºí·ÏÀÌ ÀÌ¹Ì ÀÖ´ÂÁö Ã¼Å©
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å©
                 if (!dicComponents.TryGetValue(curKey, out BoardComponent cur) || cur.curBlock != null)
                     continue;
 
                 List<int> usableTypes = new List<int>(dicBlockTypes.Keys);
 
-                // ÁÖº¯ ºí·Ï Å¸ÀÔÀ» È®ÀÎÇÏ°í »ç¿ëÇÒ ¼ö ¾ø´Â Å¸ÀÔÀ» Á¦°Å
+                // ï¿½Öºï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 CheckNeighbourTypes(curKey, usableTypes);
 
-                // »ç¿ë °¡´ÉÇÑ Å¸ÀÔ¿¡¼­ ºí·ÏÀ» ¼±ÅÃÇÏ°í »ı¼º
+                // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ô¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
                 int selected = usableTypes[Random.Range(0, usableTypes.Count)];
                 CreateBlockAt(curKey, selected);
                 
@@ -145,7 +146,7 @@ public class Board : MonoBehaviour
         ClickPosition.Enable();
     }
 
-    // ÁÖº¯ ºí·Ï Å¸ÀÔÀ» Ã¼Å©ÇÏ°í »ç¿ë °¡´ÉÇÑ Å¸ÀÔ ¸ñ·Ï¿¡¼­ Á¦°ÅÇÏ´Â ÇÔ¼ö
+    // ï¿½Öºï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     private void CheckNeighbourTypes(Vector3Int curKey, List<int> usableTypes)
     {
         int leftType = -1, downType = -1, rightType = -1, upType = -1;
@@ -235,7 +236,7 @@ public class Board : MonoBehaviour
         return match;
     }
 
-    // Factory·Î ±â´ÉºĞ¸®
+    
     private Block CreateBlockAt(Vector3Int _key, int _selected)
     {
         //if (_blockPrefab == null)
@@ -292,7 +293,7 @@ public class Board : MonoBehaviour
 
             Vector3Int upPos = curPos + Vector3Int.up;
             bool isUpAvailable = dicComponents.TryGetValue(upPos, out BoardComponent up);
-            bool isUpEmpty = isUpAvailable && up.Empty() && !CanSpawn(curPos); // °°Àº ¿­¿¡ ½ºÆùÀÌ ºÒ°¡´ÉÇÑ »óÈ²
+            bool isUpEmpty = isUpAvailable && up.Empty() && !CanSpawn(curPos); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È²
 
             if (isUpAvailable && up.curBlock != null && up.CanFall)
             {
@@ -333,7 +334,7 @@ public class Board : MonoBehaviour
                 emptyComponents.Add(upPos + Vector3Int.left);
                 emptyComponents.Remove(curPos);
             }
-            else if ((curPos + Vector3Int.up).y >= height)  // curPos°¡ ¸®½ºÆù ¿µ¿ªÀÌ¶ó¸é °Å±â¼­ ¸®½ºÆùµÇ°Ô
+            else if ((curPos + Vector3Int.up).y >= height)  // curPosï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½Å±â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½
                 RespawnBlock(curPos);
             //else if()
 
@@ -347,69 +348,69 @@ public class Board : MonoBehaviour
     {
         canInput = false;
 
-        movingComponents.Sort((a, b) => // ¾Æ·¡¿¡ ÀÖ´Â ºí·Ï ¸ÕÀú ÀÌµ¿ÈÄ °ø°£À» ¸¶·ÃÇØÁÖ±â À§ÇÑ Á¤·Ä
+        movingComponents.Sort((a, b) => // ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
             int yCmp = a.y.CompareTo(b.y);
             if (yCmp == 0)
             {
-                return a.x.CompareTo(b.x); // ÀÏ´ÜÁÂÃø¿ì¼± TODO:·£´ıÀ¸·Î ÇÏ´Â °Íµµ °í·Á
+                return a.x.CompareTo(b.x); // ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¼± TODO:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½
             }
             return yCmp;
         });
 
-        for(int i = 0; i < movingComponents.Count; i++) // ÁÂÃøÇÏ´ÜºÎÅÍ ¼øÈ¸
+        for(int i = 0; i < movingComponents.Count; i++) // ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Üºï¿½ï¿½ï¿½ ï¿½ï¿½È¸
         {
             Vector3Int curPos = movingComponents[i];
             BoardComponent me = dicComponents[curPos];
 
-            if(me.nextBlock != null && me.curBlock != null) // ºñÁ¤»óÀûÀÎ »óÈ² ¿¹¿ÜÃ³¸®
+            if(me.nextBlock != null && me.curBlock != null) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È² ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
             {
                 //error
                 Debug.Log("MOVING_ERRER");
                 continue;
             }
 
-            if(me.nextBlock?.curState == Block.BlockState.Fall) // if(³ªÀÇ ´ÙÀ½ºí·ÏÀÌ ¶³¾îÁö´Â»óÅÂ) ¸ñÇ¥À§Ä¡·Î ÀÌµ¿
+            if(me.nextBlock?.curState == Block.BlockState.Fall) // if(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½) ï¿½ï¿½Ç¥ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½
             {
                 Block block = me.nextBlock;
-                float fallSpeed = 7.0f; // TODO : Á÷·ÄÈ­
+                float fallSpeed = 7.0f; // TODO : ï¿½ï¿½ï¿½ï¿½È­
 
-                block.transform.localPosition = Vector3.MoveTowards(block.transform.localPosition, curPos, Time.deltaTime*fallSpeed); // ÀÌµ¿
-                int rotDir; // È¸Àü
+                block.transform.localPosition = Vector3.MoveTowards(block.transform.localPosition, curPos, Time.deltaTime*fallSpeed); // ï¿½Ìµï¿½
+                int rotDir; // È¸ï¿½ï¿½
                 if(curPos.x != block.transform.localPosition.x)
                 {
                     rotDir = curPos.x > block.transform.localPosition.x ? 1 : -1;
                     block.transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(curPos.y, curPos.x) * rotDir * Mathf.Rad2Deg, Vector3.forward);
                 }
 
-                if(block.transform.localPosition == curPos) // ¸ñÇ¥À§Ä¡µµÂø
+                if(block.transform.localPosition == curPos) // ï¿½ï¿½Ç¥ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½
                 {
                     block.transform.rotation = Quaternion.identity;
-                    movingComponents.RemoveAt(i); // ¿òÁ÷ÀÌ´Âºí·°¸ñ·Ï¿¡¼­ Á¦°Å
+                    movingComponents.RemoveAt(i); // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´Âºï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     i--;
 
-                    me.nextBlock = null; // ÇöÀçÄÄÆ÷³ÍÆ®ÀÇ ´ÙÀ½ºí·Ï ºñ¿ì°í
-                    me.curBlock = block; // µµÂøÇÑ ºí·ÏÀ» ÇöÀçºí·ÏÀ¸·Î ¼¼ÆÃ
-                    block.RenewPosition(curPos); // ºí·ÏÀÇ ÇöÀçÀ§Ä¡ °»½Å
+                    me.nextBlock = null; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    me.curBlock = block; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    block.RenewPosition(curPos); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 
-                    // ¾Æ·¡ÂÊ¿¡ ºó°ø°£ÀÌ ÀÖ´Ù¸é »õ·Î¿î À§Ä¡·Î ´Ù½Ã ¿òÁ÷ÀÌ±â
+                    // ï¿½Æ·ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½
                     if (emptyComponents.Contains(curPos + Vector3Int.down) && 
-                        dicComponents.TryGetValue(curPos + Vector3Int.down, out BoardComponent down)) // ¹Ù·Î¾Æ·¡
+                        dicComponents.TryGetValue(curPos + Vector3Int.down, out BoardComponent down)) // ï¿½Ù·Î¾Æ·ï¿½
                     {
-                        me.curBlock = null; // ÇöÀçÄÄÆ÷³ÍÆ®¸¦ ºñ¿ì°í ´Ù¸¥ ºí·ÏÀÌ µé¾î¿Ã ¼ö ÀÖ°Ô ÇÑ´Ù
-                        down.nextBlock = block; // ¾Æ·¡ºí·ÏÀÇ ´ÙÀ½ºí·ÏÀ» Áö±İ ³ª¿¡°Ô µµÂøÇÑ ºí·ÏÀ¸·Î ¼¼ÆÃ
+                        me.curBlock = null; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½Ñ´ï¿½
+                        down.nextBlock = block; // ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-                        Vector3Int target = curPos + Vector3Int.down; // ¸ñÇ¥À§Ä¡
-                        newMovingComponents.Add(target); // Ãß°¡µÉ ¿òÁ÷ÀÌ´Âºí·Ï¸ñ·Ï¿¡ ÇØ´çÁÂÇ¥Å° Ãß°¡
+                        Vector3Int target = curPos + Vector3Int.down; // ï¿½ï¿½Ç¥ï¿½ï¿½Ä¡
+                        newMovingComponents.Add(target); // ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´Âºï¿½ï¿½Ï¸ï¿½Ï¿ï¿½ ï¿½Ø´ï¿½ï¿½ï¿½Ç¥Å° ï¿½ß°ï¿½
 
-                        emptyComponents.Remove(target); // ÇØ´çÁÂÇ¥Å°´Â ÀÌ¹ø¿¡ Ã¤¿öÁ³À¸´Ï ºó¸ñ·Ï¿¡¼­ Á¦°Å
-                        emptyComponents.Add(curPos);    // Áö±İ ³ªÀÇ ÁÂÇ¥Å°´Â ÀÌ¹ø¿¡ ºüÁ®³ª°¬À¸´Ï ºó¸ñ·Ï¿¡ Ãß°¡
+                        emptyComponents.Remove(target); // ï¿½Ø´ï¿½ï¿½ï¿½Ç¥Å°ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                        emptyComponents.Add(curPos);    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥Å°ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ß°ï¿½
 
                         if ((curPos + Vector3Int.up).y >= height)
                             RespawnBlock(curPos);
 
                     }
-                    // ³ªÀÇ ¿ŞÂÊ¿¡ ÄÄÆ÷³ÍÆ®°¡ ¾ø´Âµ¥ ¿ŞÂÊ¾Æ·¡¿¡´Â ºóÄÄÆ÷³ÍÆ®°¡ Á¸ÀçÇÒ¶§, ³»°¡ Ã¤¿î´Ù
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Âµï¿½ ï¿½ï¿½ï¿½Ê¾Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½, ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½
                     else if ((!dicComponents.TryGetValue(curPos + Vector3Int.left, out BoardComponent left) || left.BlockFall) &&
                         emptyComponents.Contains(curPos + Vector3Int.down + Vector3Int.left) &&
                         dicComponents.TryGetValue(curPos + Vector3Int.down + Vector3Int.left, out BoardComponent downleft))
@@ -425,7 +426,7 @@ public class Board : MonoBehaviour
 
                         if ((curPos + Vector3Int.up).y >= height)
                             RespawnBlock(curPos);
-                    } // ¾Æ·¡ ¿À¸¥ÂÊµµ ¸¶Âù°¡Áö
+                    } // ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     else if((!dicComponents.TryGetValue(curPos + Vector3Int.right, out BoardComponent right) || right.BlockFall) &&
                         emptyComponents.Contains(curPos + Vector3Int.down + Vector3Int.right) && dicComponents.TryGetValue(curPos + Vector3Int.down + 
                         Vector3Int.right, out BoardComponent downright))
@@ -438,14 +439,14 @@ public class Board : MonoBehaviour
                         emptyComponents.Remove(target);
                         emptyComponents.Add(curPos);
 
-                        ////////////////// ¸®½ºÆù »óÈ²///////////////////
+                        ////////////////// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È²///////////////////
                         if ((curPos + Vector3Int.up).y >= height)
                             RespawnBlock(curPos);
                     }
                     else
                     {
-                        block.EndFalling(); //NoneÀ¸·Î º¯°æÇÏ´Â ÇÔ¼ö
-                        extraCheckComponents.Add(curPos); // À§Ä¡°¡ »õ·Ó°Ô ¼¼ÆÃµÇ¾î Ãß°¡ÀûÀÎ ¸ÅÄ¡Ã¼Å© ÇÊ¿ä
+                        block.EndFalling(); //Noneï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+                        extraCheckComponents.Add(curPos); // ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½ÃµÇ¾ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡Ã¼Å© ï¿½Ê¿ï¿½
                     }
 
                 }
@@ -609,17 +610,17 @@ public class Board : MonoBehaviour
     #endregion
     private bool CheckMatch(Vector3Int _mainPos)
     {
-        if (!dicComponents.TryGetValue(_mainPos, out var mainCom) || mainCom.curBlock == null) // ¹®Á¦°¡ ÀÖ´Â »óÈ²
+        if (!dicComponents.TryGetValue(_mainPos, out var mainCom) || mainCom.curBlock == null) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½È²
             return false;
         if (mainCom.curBlock.curMatch != null)
             return false;
 
-        List<Vector3Int> sameList = new List<Vector3Int>(); // °°Àº Å¸ÀÔ ºí·Ï ÁÂÇ¥¸ñ·Ï
-        List<Vector3Int> checkedList = new List<Vector3Int>(); //ÀÌ¹Ì Ã¼Å©ÇÑ ¸ñ·Ï
-        Queue<Vector3Int> checkingQueue = new Queue<Vector3Int>(); // °Ë»çÇÒ ÁÂÇ¥µé Å¥
+        List<Vector3Int> sameList = new List<Vector3Int>(); // ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½
+        List<Vector3Int> checkedList = new List<Vector3Int>(); //ï¿½Ì¹ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½
+        Queue<Vector3Int> checkingQueue = new Queue<Vector3Int>(); // ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ Å¥
 
         checkingQueue.Enqueue(_mainPos); 
-        while (checkingQueue.Count > 0) // ³Êºñ¿ì¼±Å½»ö ½ÃÀÛ
+        while (checkingQueue.Count > 0) // ï¿½Êºï¿½ì¼±Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
             Vector3Int curPos = checkingQueue.Dequeue();
 
@@ -665,14 +666,14 @@ public class Board : MonoBehaviour
                     }
                 }
 
-                if (rowList.Count >= 2 && colList.Count >= 2) //Å©·Î½ºÁ¶°Ç
+                if (rowList.Count >= 2 && colList.Count >= 2) //Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½
                 {
                     shapeMatch.AddRange(rowList);
                     shapeMatch.AddRange(colList);
                     shapeMatch.Add(pos);
                     specialMatchs[1] = true;
                 }
-                else if(rowList.Count >= 1 && colList.Count >= 1) // 2x2Á¶°Ç
+                else if(rowList.Count >= 1 && colList.Count >= 1) // 2x2ï¿½ï¿½ï¿½ï¿½
                 {
                     Vector3Int[] updown = { Vector3Int.up, Vector3Int.down };
 

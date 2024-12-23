@@ -16,6 +16,7 @@ public class BlockFactory : MonoBehaviour
     private Queue<Block_Bomb> bombBlockPool;
     private Queue<Block_Find> findBlockPool;
 
+    
     public Sprite[] GreenSprites;
     public Sprite[] OrangeSprites;
     public Sprite[] YellowSprites;
