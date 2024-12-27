@@ -21,7 +21,7 @@ public class Board : MonoBehaviour
         RespawnWall,
     }
     // TODO:���� ������ ����, �ش� ������ ���� ���� ��ġ������ �˰Բ� ���������̼� ������ �Ǵ� �ý��� ����
-    // 주석깨짐
+    // 주석깨짐    
     public static readonly Vector3Int[] neighbours =
         {
             Vector3Int.up,
