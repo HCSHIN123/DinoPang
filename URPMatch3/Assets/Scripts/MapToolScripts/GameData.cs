@@ -10,6 +10,7 @@ public class GameData : MonoBehaviour
 
     public int[,] boardData = new int[9, 9];
 
+
     
     public void InitData()
     {
