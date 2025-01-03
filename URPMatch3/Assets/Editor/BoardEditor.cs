@@ -13,6 +13,6 @@ public class BoardEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        m_Tool.Number = EditorGUILayout.IntField(m_Tool.Number);
+        m_Tool.Number = EditorGUILayout.IntField(m_Tool.Number, GUILayout.Height(100), GUILayout.Width(100));
     }
 }
